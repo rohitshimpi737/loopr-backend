@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { Parser } from 'json2csv';
-import { authenticateToken, AuthRequest } from '../middleware/auth';
+import { authenticateToken } from '../middleware/auth';
+import { AuthRequest } from '../types/global';
 import transactionService from '../services/transactionService';
 import { TransactionFilters } from '../types';
 

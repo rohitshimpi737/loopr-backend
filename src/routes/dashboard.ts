@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { authenticateToken, AuthRequest } from '../middleware/auth';
+import { authenticateToken } from '../middleware/auth';
+import { AuthRequest } from '../types/global';
 import dashboardService from '../services/dashboardService';
 
 const router = express.Router();

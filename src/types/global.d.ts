@@ -1,5 +1,5 @@
 // Global type declarations for Node.js
-import { Request } from 'express';
+import { Request as ExpressRequest } from 'express';
 
 declare global {
   namespace NodeJS {
@@ -24,12 +24,21 @@ declare global {
   var __filename: string;
   var require: NodeRequire;
   var module: NodeModule;
+  
+  namespace Express {
+    interface Request {
+      user?: {
+        id: string;
+        email: string;
+      };
+    }
+  }
 }
 
 // Express Request extensions
-export interface AuthRequest extends Request {
+export interface AuthRequest extends ExpressRequest {
   user?: {
-    userId: string;
+    id: string;
     email: string;
   };
 }
