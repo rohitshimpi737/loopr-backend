@@ -1,6 +1,4 @@
 // Global type declarations for Node.js
-import { Request as ExpressRequest } from 'express';
-
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -24,23 +22,20 @@ declare global {
   var __filename: string;
   var require: NodeRequire;
   var module: NodeModule;
-  
-  namespace Express {
-    interface Request {
-      user?: {
-        id: string;
-        email: string;
-      };
-    }
+}
+
+// Express module augmentation
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: {
+      id: string;
+      email: string;
+    };
   }
 }
 
-// Express Request extensions
-export interface AuthRequest extends ExpressRequest {
-  user?: {
-    id: string;
-    email: string;
-  };
-}
+// Type alias for convenience
+import { Request } from 'express';
+export type AuthRequest = Request;
 
 export {};
