@@ -1,12 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { authenticateToken } from '../middleware/auth';
-import { AuthRequest } from '../types/global';
 import dashboardService from '../services/dashboardService';
 
 const router = express.Router();
 
 // Get dashboard summary
-router.get('/summary', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.get('/summary', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const summary = await dashboardService.getDashboardSummary();
     res.json(summary);

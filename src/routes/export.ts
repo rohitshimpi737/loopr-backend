@@ -1,14 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { Parser } from 'json2csv';
 import { authenticateToken } from '../middleware/auth';
-import { AuthRequest } from '../types/global';
 import transactionService from '../services/transactionService';
 import { TransactionFilters } from '../types';
 
 const router = express.Router();
 
 // Export transactions as CSV
-router.post('/csv', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.post('/csv', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const filters: TransactionFilters = req.body.filters || {};
     const selectedColumns = req.body.columns || ['id', 'date', 'amount', 'category', 'status', 'user_id'];
@@ -60,7 +59,7 @@ router.post('/csv', authenticateToken, async (req: AuthRequest, res: Response, n
 });
 
 // Get export preview (count of transactions that will be exported)
-router.post('/preview', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.post('/preview', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const filters: TransactionFilters = req.body.filters || {};
     

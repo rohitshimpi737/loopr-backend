@@ -1,13 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { authenticateToken } from '../middleware/auth';
-import { AuthRequest } from '../types/global';
 import transactionService from '../services/transactionService';
 import { TransactionFilters } from '../types';
 
 const router = express.Router();
 
 // Get unique users (place before /:id route)
-router.get('/users', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.get('/users', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const users = await transactionService.getUniqueUsers();
     res.json({ users });
@@ -18,7 +17,7 @@ router.get('/users', authenticateToken, async (req: AuthRequest, res: Response, 
 });
 
 // Get unique users (alternative route for backwards compatibility)
-router.get('/users/list', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.get('/users/list', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const users = await transactionService.getUniqueUsers();
     res.json({ users });
@@ -29,7 +28,7 @@ router.get('/users/list', authenticateToken, async (req: AuthRequest, res: Respo
 });
 
 // Get all transactions with filtering and pagination
-router.get('/', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.get('/', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const filters: TransactionFilters = {
       dateFrom: req.query.dateFrom as string,
@@ -53,7 +52,7 @@ router.get('/', authenticateToken, async (req: AuthRequest, res: Response, next:
 });
 
 // Get transaction by ID
-router.get('/:id', authenticateToken, async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+router.get('/:id', authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const id = req.params.id;
     if (!id || typeof id !== 'string') {
